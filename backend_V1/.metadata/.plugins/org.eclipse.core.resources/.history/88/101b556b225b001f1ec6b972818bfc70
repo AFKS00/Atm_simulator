@@ -1,0 +1,15 @@
+package com.atm.repositorie;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.atm.entities.QrGenApi;
+import com.atm.entities.QrGenApiDto;
+
+public interface QrGenRepository extends JpaRepository<QrGenApi, Integer>{
+	 @Query("SELECT q FROM QrGenApi q ORDER BY q.id DESC")
+	    Optional<QrGenApi> findFirstByOrderByIdDesc();
+
+}
