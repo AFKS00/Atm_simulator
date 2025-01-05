@@ -1,0 +1,5 @@
+package com.atm.controller;
+
+public class AtmController {
+
+}

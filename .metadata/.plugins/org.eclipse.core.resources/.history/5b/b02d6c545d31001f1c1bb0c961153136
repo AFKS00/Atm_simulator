@@ -1,0 +1,5 @@
+package com.atm.services;
+
+public class AtmService {
+
+}
