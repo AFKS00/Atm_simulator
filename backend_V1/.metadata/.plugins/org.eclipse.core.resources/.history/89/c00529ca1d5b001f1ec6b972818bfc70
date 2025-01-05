@@ -1,0 +1,32 @@
+package com.atm.controller;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.atm.entities.QrGenApi;
+import com.atm.entities.QrGenApiRequest;
+import com.atm.services.QrGenApiService;
+
+@RestController
+public class QrGenApiController {
+
+    @Autowired
+    private QrGenApiService qrGenApiService;
+
+    @PostMapping("/save")
+    public ResponseEntity<QrGenApi> saveTransaction(@RequestBody QrGenApiRequest request) {
+        String tranId = UUID.randomUUID().toString().substring(0, 8);
+        qrGenApiService.saveTransaction(tranId, request.getAtmId(), request.getAmount(), "QR generated successfully");
+        QrGenApi qrGenApi = qrGenApiService.getLastTransaction();
+        return ResponseEntity.ok(qrGenApi);
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<QrGenApi> getLatestTransaction(){
+        QrGenApi qrGenApi = qrGenApiService.getLastTransaction();
+        return ResponseEntity.ok(qrGenApi);
+    }
+}

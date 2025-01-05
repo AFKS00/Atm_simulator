@@ -1,0 +1,12 @@
+package com.atm.repositorie;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.atm.entities.QrGenApi;
+
+public interface QrGenRepository extends JpaRepository<QrGenApi, Integer>{
+	@Query("SELECT new com.atm.entities.QrGenApiDto(q.tranId, q.atmId, q.amount) " +
+	           "FROM QrGenApi q ORDER BY q.id DESC")
+	QrGenApi findTopByOrderByIdDesc();
+}
